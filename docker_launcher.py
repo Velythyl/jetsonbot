@@ -5,6 +5,10 @@ import subprocess
 import sys
 from time import sleep
 
+old_print = print
+def print(string):
+    old_print(string, file=sys.stderr)
+
 
 def list_of_str(string):
     string = string.replace("[").replace("]")
@@ -83,7 +87,7 @@ def fake_func():
             if process.poll() is not None:
                 print(
                     f"DOCKER LAUNCHER REPORT: process '{cleanup_docker_name(dockers_to_run[i])}' has died. \nExiting now.",
-                    file=sys.stderr)
+                    )
                 return
         sleep(10)
 
