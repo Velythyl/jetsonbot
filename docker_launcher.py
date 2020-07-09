@@ -25,17 +25,17 @@ def cleanup_docker_name(string):
 def handle_exit():
     for docker in genned_names:
         try:
-            print(subprocess.check_output(("docker stop " + cleanup_docker_name(docker)).split(" "),
+            print(subprocess.check_output(("docker stop "+docker).split(" "),
                                           universal_newlines=True))
         except Exception as e:
             print(e)
             print("Trying to kill instead")
             try:
-                print(subprocess.check_output(("docker kill " + cleanup_docker_name(docker)).split(" "),
+                print(subprocess.check_output(("docker kill "+docker).split(" "),
                                               universal_newlines=True))
             except Exception as e:
                 print(e)
-                print(f"You will have to kill '{cleanup_docker_name(docker)}' yourself")
+                print(f"You will have to kill '{docker}' yourself")
     exit()
 
 genned_names = []
@@ -79,6 +79,8 @@ for docker in dockers_to_run:
     processes.append(subprocess.Popen(command.split(" "), universal_newlines=True))
 
     print(f"Started '{cleanup_docker_name(docker)}'.")
+
+    sleep(60)
 
 
 def fake_func():
