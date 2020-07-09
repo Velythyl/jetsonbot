@@ -1,8 +1,8 @@
 import argparse
+import random
 import signal
 import subprocess
 import sys
-from random import random
 from time import sleep
 
 
