@@ -5,6 +5,8 @@ import subprocess
 import sys
 from time import sleep
 
+# TODO split out the output of the dockers into separate log files, i guess?
+
 old_print = print
 def print(string):
     old_print(string, file=sys.stderr)
@@ -36,6 +38,9 @@ def handle_exit():
             except Exception as e:
                 print(e)
                 print(f"You will have to kill '{docker}' yourself")
+                
+    for pipe in pipes:
+        pipe.close()
     exit()
 
 genned_names = []
@@ -73,14 +78,17 @@ dockers_to_run = [
 print(f"Dockers to run, sequentially: {', '.join(map(cleanup_docker_name, dockers_to_run))}")
 
 processes = []
+pipes = []
 for docker in dockers_to_run:
     command = f"docker run --net=host -v /home/jetsonbot/data:/data --privileged --device=/dev/vchiq:/dev/vchiq --name {gen_name()} {docker}"
 
-    processes.append(subprocess.Popen(command.split(" "), universal_newlines=True))
+    pipes.append(open(cleanup_docker_name(docker).split("/")[-1]+".log", "w"))
+
+    processes.append(subprocess.Popen(command.split(" "), universal_newlines=True, stdout=pipes[-1], stderr=pipes[-1]))
 
     print(f"Started '{cleanup_docker_name(docker)}'.")
 
-    sleep(60)
+    sleep(60)   # timing issues https://answers.ros.org/question/310848/run_id-on-parameter-server-does-not-match-declared-run_id/
 
 
 def fake_func():
