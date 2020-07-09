@@ -7,11 +7,6 @@ from time import sleep
 
 # TODO split out the output of the dockers into separate log files, i guess?
 
-old_print = print
-def print(string):
-    old_print(string, file=sys.stderr)
-
-
 def list_of_str(string):
     string = string.replace("[").replace("]")
     listed = string.split(",")
@@ -30,7 +25,7 @@ def handle_exit():
 
         try:
             print(subprocess.check_output(("docker stop "+docker).split(" "),
-                                          universal_newlines=True))
+                                          universal_newlines=True), end="")
             print(f"Successfully stopped '{docker_command}'")
         except Exception as e:
             print("Trying to kill instead")
