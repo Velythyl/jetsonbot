@@ -25,20 +25,22 @@ def cleanup_docker_name(string):
     return string.split(" ")[-1]
 
 def handle_exit():
-    for docker in genned_names:
+    for i, docker in enumerate(genned_names):
+        docker_command = cleanup_docker_name(dockers_to_run[i])
+
         try:
             print(subprocess.check_output(("docker stop "+docker).split(" "),
                                           universal_newlines=True))
+            print(f"Successfully stopped '{docker_command}'")
         except Exception as e:
-            print(e)
             print("Trying to kill instead")
             try:
                 print(subprocess.check_output(("docker kill "+docker).split(" "),
                                               universal_newlines=True))
+                print(f"Successfully killed '{docker_command}'")
             except Exception as e:
-                print(e)
                 print(f"You will have to kill '{docker}' yourself")
-                
+
     for pipe in pipes:
         pipe.close()
     exit()
