@@ -6,7 +6,9 @@ from time import sleep
 
 
 def list_of_str(string):
-    return map(float, string.replace("[").replace("]").split(","))
+    string = string.replace("[").replace("]")
+    listed = string.split(",")
+    return map(float, listed)
 
 
 def signal_handler(sig, frame):
@@ -16,7 +18,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--dockers", type=list_of_str)
+parser.add_argument("-d", "--dockers", default=[], type=list_of_str)
 parser = parser.parse_args()
 
 dockers_to_run = [
