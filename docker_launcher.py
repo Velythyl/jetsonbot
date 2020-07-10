@@ -68,7 +68,10 @@ parser = parser.parse_args()
 dockers_to_run = [   "-v /var/run/docker.sock:/var/run/docker.sock -v /var/local:/var/local duckietown/dt-device-loader:daffy-arm32v7",
                      "duckietown/dt-duckiebot-interface:daffy-arm32v7",
                      "duckietown/dt-car-interface:daffy-arm32v7",
-                     "--gpus all duckietown/dt-core:daffy-arm32v7"
+                     "--gpus all duckietown/dt-core:daffy-arm32v7",
+                     "duckietown/dt-device-online:daffy-arm32v7",
+                     "duckietown/dt-rosbridge-websocket:daffy-arm32v7",
+                     "duckietown/rpi-simple-server:master18"
                  ] + parser.dockers
 
 
