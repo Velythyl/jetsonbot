@@ -2,7 +2,7 @@ FROM arm64v8/python:3.6
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
-    rm -r /var/lib/apt/lists/* && apt-get updrade -y
+    rm -r /var/lib/apt/lists/* && apt-get upgrade -y
 
 
 RUN pip install -U pip && rm -rf /root/.cache
