@@ -1,11 +1,11 @@
 FROM arm64v8/ubuntu
 
-RUN apt-get install python3.7
-
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
     rm -r /var/lib/apt/lists/* && apt-get upgrade -y
+
+RUN apt-get install python3.7
 
 RUN pip3 install -U pip && rm -rf /root/.cache
 
