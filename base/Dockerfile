@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
 
 RUN pip install -U pip && rm -rf /root/.cache
 
-RUN apt-get install python-opencv
+RUN add-apt-repository python-opencv -y && apt-get install python-opencv -y
 
 COPY requirements.txt requirements-base.txt
 RUN pip install -r requirements-base.txt && rm -rf /root/.cache
