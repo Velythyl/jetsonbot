@@ -1,14 +1,13 @@
 FROM arm64v8/ubuntu
 
-RUN python3 --version
+RUN apt-get install python3.7
 
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
     rm -r /var/lib/apt/lists/* && apt-get upgrade -y
 
-
-RUN pip install -U pip && rm -rf /root/.cache
+RUN pip3 install -U pip && rm -rf /root/.cache
 
 # OPENCV
 RUN apt-get install python3-dev python3-pip python3-numpy
@@ -32,9 +31,9 @@ RUN cd .. && cd ..
 #RUN pip install opencv-python-aarch64
 
 COPY requirements.txt requirements-base.txt
-RUN pip install -r requirements-base.txt && rm -rf /root/.cache
+RUN pip3 install -r requirements-base.txt && rm -rf /root/.cache
 
-RUN pip freeze | tee /pip-freeze.txt
-RUN pip list | tee /pip-list.txt
+RUN pip3 freeze | tee /pip3-freeze.txt
+RUN pip3 list | tee /pip3-list.txt
 
 ENV DISABLE_CONTRACTS 1
