@@ -1,4 +1,4 @@
-FROM arm64v8/python:3.7
+FROM arm64v8/python:3
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
