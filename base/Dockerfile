@@ -1,4 +1,7 @@
-FROM arm64v8/python:3.7
+FROM arm64v8/ubuntu
+
+RUN python3 --version
+
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
@@ -6,8 +9,6 @@ RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
 
 
 RUN pip install -U pip && rm -rf /root/.cache
-
-RUN ping google.com
 
 # OPENCV
 RUN apt-get install python3-dev python3-pip python3-numpy
