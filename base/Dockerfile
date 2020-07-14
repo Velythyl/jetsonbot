@@ -26,7 +26,7 @@ RUN pip install -U pip && rm -rf /root/.cache
 #RUN cd .. && cd ..
 
 RUN pip install --upgrade pip && pip install wheel
-RUN pip install opencv-python-aarch64 -y
+RUN pip install opencv-python-aarch64
 
 COPY requirements.txt requirements-base.txt
 RUN pip install -r requirements-base.txt && rm -rf /root/.cache
