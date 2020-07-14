@@ -1,5 +1,5 @@
 numpy==1.16.2
-opencv-python>=4.1.0.25
+opencv-python-aarch64
 zuper-nodes-z5>=5.0.9
 zuper-typing-z5>=5.0.12
 zuper-ipce-z5>=5.1.2
