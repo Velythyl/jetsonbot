@@ -2,6 +2,8 @@
 
 FROM duckietown/aido3-base-python3:daffy
 
+RUN add-apt-repository main && add-apt-repository universe && add-apt-repository restricted && add-apt-repository multiverse
+
 # DO NOT MODIFY: your submission won't run if you do
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
          gcc \
