@@ -1,5 +1,7 @@
 FROM arm64v8/ubuntu
 
+RUN add-apt-repository main && add-apt-repository universe && add-apt-repository restricted && add-apt-repository multiverse
+
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
