@@ -15,8 +15,9 @@ RUN apt-get install libneon27-dev -y
 RUN apt-get install libneon27-gnutls-dev -y
 RUN wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.4.0.zip
 RUN unzip opencv.zip
-#RUN wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.4.0.zip
-#RUN unzip opencv_contrib.zip
+RUN wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.4.0.zip
+RUN unzip opencv_contrib.zip
+
 
 RUN mkdir ./opencv-3.4.0/build
 WORKDIR ./opencv-3.4.0/build
