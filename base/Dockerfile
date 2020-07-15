@@ -1,5 +1,7 @@
 FROM arm64v8/ubuntu
 
+RUN lsb_release -a
+
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
