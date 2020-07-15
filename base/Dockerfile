@@ -18,7 +18,7 @@ RUN unzip opencv.zip
 RUN wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.4.0.zip
 RUN unzip opencv_contrib.zip
 
-RUN apt-get install tree -y && tree
+RUN ls
 
 RUN mkdir ./opencv-3.4.0/build
 WORKDIR ./opencv-3.4.0/build
