@@ -5,10 +5,6 @@ WORKDIR /project
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
     rm -r /var/lib/apt/lists/* && apt-get upgrade -y
 
-RUN apt-get install software-properties-common
-
-RUN add-apt-repository main && add-apt-repository universe && add-apt-repository restricted && add-apt-repository multiverse
-
 RUN apt install python3
 
 RUN pip3 install -U pip && rm -rf /root/.cache
