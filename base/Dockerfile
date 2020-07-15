@@ -3,7 +3,10 @@ FROM arm64v8/python
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
-    rm -r /var/lib/apt/lists/* && apt-get upgrade -y
+    rm -r /var/lib/apt/lists/*
+
+RUN dpkg-architecture --list
+RUN dpkg --print-foreign-architectures
 
 RUN apt install python3
 
