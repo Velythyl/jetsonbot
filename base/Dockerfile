@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM arm64v8/python
 
 RUN lsb_release -a
 
