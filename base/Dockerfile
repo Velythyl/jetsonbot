@@ -1,6 +1,6 @@
 FROM arm64v8/python
 
-RUN lsb_release -a
+RUN apt-get install -y lsb-release && lsb_release -a
 
 WORKDIR /project
 
