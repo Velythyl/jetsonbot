@@ -17,6 +17,9 @@ RUN wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.4.0.zip
 RUN unzip opencv.zip
 #RUN wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.4.0.zip
 #RUN unzip opencv_contrib.zip
+
+RUN ls
+
 RUN mkdir ./opencv/build
 WORKDIR ./opencv/build
 RUN cmake -D CMAKE_BUILD_TYPE=RELEASE -D ENABLE_NEON=ON -D ENABLE_TBB=ON -D ENABLE_IPP=ON -D ENABLE_VFVP3=ON -D WITH_OPENMP=ON -D WITH_CSTRIPES=ON -D WITH_OPENCL=ON -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=/root/$(whoami)/opencv_contrib-3.4.0/modules/ ..
