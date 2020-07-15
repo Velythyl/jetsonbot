@@ -1,5 +1,7 @@
 FROM arm64v8/ubuntu
 
+RUN apt-get install software-properties-common
+
 RUN add-apt-repository main && add-apt-repository universe && add-apt-repository restricted && add-apt-repository multiverse
 
 WORKDIR /project
