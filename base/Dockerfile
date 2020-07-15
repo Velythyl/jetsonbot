@@ -1,11 +1,11 @@
 FROM arm64v8/python
 
-RUN apt-get install -y lsb-release && lsb_release -a
-
 WORKDIR /project
 
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
     rm -r /var/lib/apt/lists/* && apt-get upgrade -y
+
+RUN apt-get install -y lsb-release && lsb_release -a
 
 RUN apt install python3
 
