@@ -11,7 +11,8 @@ RUN pip3 install -U pip && rm -rf /root/.cache
 RUN apt-get update && apt-get install python3-dev python3-pip python3-numpy -y
 RUN apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev  libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev protobuf-compiler libgflags-dev libgoogle-glog-dev libblas-dev libhdf5-serial-dev liblmdb-dev libleveldb-dev liblapack-dev libsnappy-dev libprotobuf-dev libopenblas-dev libgtk2.0-dev libboost-dev libboost-all-dev libeigen3-dev libatlas-base-dev libne10-10 libne10-dev -y
 RUN pip3 install neon
-RUN apt-get install libneon27-dev libneon27-gnutls-dev -y
+RUN apt-get install libneon27-dev -y
+RUN apt-get install libneon27-gnutls-dev -y
 RUN wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.4.0.zip
 RUN unzip opencv-3.4.0.zip
 RUN wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.4.0.zip
