@@ -5,6 +5,9 @@ WORKDIR /project
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
     rm -r /var/lib/apt/lists/*
 
+# CUDA
+RUN apt update && apt install nvidia-cuda-toolkit && nvcc --version
+
 RUN pip3 install -U pip && rm -rf /root/.cache
 
 # OPENCV
