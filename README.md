@@ -36,3 +36,9 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 docker buildx version # should return a correct version; verifies that buildx is enabled
 
 ```
+
+# CUDA inside the docker
+
+https://github.com/Technica-Corporation/Tegra-Docker
+
+Basically, by simply plugging all the files needed for CUDA into the docker, since the host is also aarch65, everything works fine!
