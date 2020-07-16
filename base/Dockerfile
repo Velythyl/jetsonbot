@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
 
 RUN pip3 install -U pip && rm -rf /root/.cache
 
+RUN pip3 install numpy
+
 # OPENCV
 RUN apt-get update && apt-get install python3-dev python3-pip python3-numpy -y
 RUN apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev  libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev protobuf-compiler libgflags-dev libgoogle-glog-dev libblas-dev libhdf5-serial-dev liblmdb-dev libleveldb-dev liblapack-dev libsnappy-dev libprotobuf-dev libopenblas-dev libgtk2.0-dev libboost-dev libboost-all-dev libeigen3-dev libatlas-base-dev libne10-10 libne10-dev -y
