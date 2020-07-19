@@ -15,7 +15,10 @@ RUN apt-get update && apt-get install \
     libavformat-dev libswscale-dev  libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev \
     protobuf-compiler libgflags-dev libgoogle-glog-dev libblas-dev libhdf5-serial-dev liblmdb-dev libleveldb-dev \
     liblapack-dev libsnappy-dev libprotobuf-dev libopenblas-dev libgtk2.0-dev libboost-dev libboost-all-dev \
-    libeigen3-dev libatlas-base-dev libne10-10 libne10-dev libneon27-dev libneon27-gnutls-dev -y --no-install-recommends
+    libeigen3-dev libatlas-base-dev libne10-10 libne10-dev -y --no-install-recommends && \
+    apt-get install libneon27-dev -y --no-install-recommends && \
+    apt-get install libneon27-gnutls-dev -y --no-install-recommends && \
+    apt-get clean && apt-get autoremove
 
 RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip && \
     unzip opencv.zip && \
