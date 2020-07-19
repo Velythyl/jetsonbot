@@ -1,6 +1,6 @@
 # Definition of Submission container
 
-FROM duckietown/aido3-base-python3:daffy
+FROM velythyl/base:latest
 
 # DO NOT MODIFY: your submission won't run if you do
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
