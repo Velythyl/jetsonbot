@@ -37,7 +37,7 @@ RUN pip3 install torch-1.6.0-cp37-cp37m-linux_aarch64.whl
 RUN git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
 WORKDIR torchvision
 RUN find / lib | grep libmpi
-RUN ln -s /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.40 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20
+RUN touch /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20 && ln -s /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.40 /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.20
 RUN python3 setup.py install
 WORKDIR /workspace
 
