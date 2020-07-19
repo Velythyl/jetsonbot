@@ -36,7 +36,8 @@ RUN pip3 install Cython
 RUN pip3 install torch-1.6.0-cp37-cp37m-linux_aarch64.whl
 RUN git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
 WORKDIR torchvision
-RUN apt-get update && apt-get install libopenmpi-dev openmpi-bin -y && python3 setup.py install
+RUN find libmpi_cxx
+RUN python3 setup.py install
 WORKDIR /workspace
 
 
