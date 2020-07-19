@@ -16,19 +16,19 @@ RUN apt-get update && apt-get install \
     protobuf-compiler libgflags-dev libgoogle-glog-dev libblas-dev libhdf5-serial-dev liblmdb-dev libleveldb-dev \
     liblapack-dev libsnappy-dev libprotobuf-dev libopenblas-dev libgtk2.0-dev libboost-dev libboost-all-dev \
     libeigen3-dev libatlas-base-dev libne10-10 libne10-dev libneon27-dev libneon27-gnutls-dev -y --no-install-recommends
-RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip
-RUN unzip opencv.zip
-RUN wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/4.1.2.zip
-RUN unzip opencv_contrib.zip
 
-RUN ls
-
-RUN mkdir ./opencv-4.1.2/build
-WORKDIR ./opencv-4.1.2/build
-RUN cmake -D CMAKE_BUILD_TYPE=RELEASE -D ENABLE_NEON=ON -D ENABLE_TBB=ON -D ENABLE_IPP=ON -D ENABLE_VFVP3=ON -D WITH_OPENMP=ON -D WITH_CSTRIPES=ON -D WITH_OPENCL=ON -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=./../../opencv_contrib-4.1.2/modules/ ..
-RUN make
-RUN make install
-WORKDIR /project
-RUN rm -rf opencv-4.1.2 && rm -rf opencv_contrib
+RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip && \
+    unzip opencv.zip && \
+    wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/4.1.2.zip && \
+    unzip opencv_contrib.zip && \
+    mkdir ./opencv-4.1.2/build && \
+    cd ./opencv-4.1.2/build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D ENABLE_NEON=ON -D ENABLE_TBB=ON -D ENABLE_IPP=ON -D ENABLE_VFVP3=ON -D \
+    WITH_OPENMP=ON -D WITH_CSTRIPES=ON -D WITH_OPENCL=ON -D CMAKE_INSTALL_PREFIX=/usr/local -D \
+    OPENCV_EXTRA_MODULES_PATH=./../../opencv_contrib-4.1.2/modules/ .. && \
+    make && \
+    make install && \
+    cd ../.. && \
+    rm -rf opencv-4.1.2 && rm -rf opencv_contrib
 
 ENV DISABLE_CONTRACTS 1
