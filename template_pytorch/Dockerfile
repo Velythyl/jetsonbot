@@ -40,7 +40,7 @@ RUN apt-get update && \
             python3-pip \
 		  python3-dev \
 		  libopenblas-dev \
-		  libopenmpi2 \
+		  libopenmpi \
             openmpi-bin \
             openmpi-common \
 		  gfortran \
