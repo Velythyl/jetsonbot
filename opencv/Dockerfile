@@ -29,6 +29,6 @@ RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip && \
     make && \
     make install && \
     cd ../.. && \
-    rm -rf opencv-4.1.2 && rm -rf opencv_contrib
+    rm -rf opencv-4.1.2 && rm -rf opencv_contrib-4.1.2
 
 ENV DISABLE_CONTRACTS 1
