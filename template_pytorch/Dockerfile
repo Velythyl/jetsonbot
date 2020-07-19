@@ -31,9 +31,9 @@ WORKDIR /workspace
 
 # Torch & torchvision: https://forums.developer.nvidia.com/t/pytorch-for-jetson-nano-version-1-5-0-now-available/72048
 RUN apt-get install python3-pip libopenblas-base libopenmpi-dev libjpeg-dev zlib1g-dev -y
-RUN wget https://nvidia.box.com/shared/static/yr6sjswn25z7oankw8zy1roow9cy5ur1.whl -O torch-linux_aarch64.whl
+RUN wget https://nvidia.box.com/shared/static/yr6sjswn25z7oankw8zy1roow9cy5ur1.whl -O torch-1.6.0-cp37-cp37m-linux_aarch64.whl
 RUN pip3 install Cython
-RUN pip3 install torch-linux_aarch64.whl
+RUN pip3 install torch-1.6.0-cp37-cp37m-linux_aarch64.whl
 RUN git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
 RUN cd torchvision
 RUN python3 setup.py install
