@@ -34,8 +34,9 @@ RUN apt-get update && apt-get install python3-pip libopenblas-base libopenmpi-de
 RUN wget https://nvidia.box.com/shared/static/yr6sjswn25z7oankw8zy1roow9cy5ur1.whl -O torch-1.6.0-cp37-cp37m-linux_aarch64.whl
 RUN pip3 install Cython
 RUN pip3 install torch-1.6.0-cp37-cp37m-linux_aarch64.whl
-RUN git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
-WORKDIR torchvision
+#RUN git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
+RUN wget https://github.com/pytorch/vision/archive/v0.7.0-rc2.zip -O torchvision.zip && unzip torchvision.zip
+WORKDIR vision-0.7.0-rc2
 RUN find / lib | grep libmpi
 RUN ln -s /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.40 /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.20 && \
     ln -s /usr/lib/aarch64-linux-gnu/libmpi.so.40 /usr/lib/aarch64-linux-gnu/libmpi.so.20
