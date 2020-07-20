@@ -35,6 +35,7 @@ RUN wget https://nvidia.box.com/shared/static/yr6sjswn25z7oankw8zy1roow9cy5ur1.w
 RUN pip3 install Cython
 RUN pip3 install torch-1.6.0-cp37-cp37m-linux_aarch64.whl
 #RUN git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
+RUN pip3 install torchvision
 RUN wget https://github.com/pytorch/vision/archive/v0.7.0-rc2.zip -O torchvision.zip && unzip torchvision.zip
 WORKDIR vision-0.7.0-rc2
 RUN find / lib | grep libmpi
