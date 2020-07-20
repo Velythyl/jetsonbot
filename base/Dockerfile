@@ -5,7 +5,7 @@ WORKDIR /project
 RUN apt-get update && apt-get install -y ffmpeg mencoder && apt-get clean && \
     rm -r /var/lib/apt/lists/*
 
-RUN pip3 install -U pip && rm -rf /root/.cache
+RUN pip3 install -U pip && pip3 install --upgrade pip setuptools wheel && rm -rf /root/.cache
 
 RUN pip3 install numpy
 
