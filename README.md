@@ -50,3 +50,14 @@ Well. This is awkward. We can't use CUDA inside a docker because we're on ARM64,
 We're doing the following: create the docker image with a `docker build`. Then, make the docker run a script that installs torch during a `docker run`.
 
 Then, use `docker commit`. Tada! Torch installed.
+
+# Turns out that doing this ourselves is way too hard and unmaintainable
+
+We'll have to flip the current scheme on its head: instead of doing the base, then the lib (torch/TF), then the submission,
+we'll have to do lib, base, submission.
+
+By simply using NVIDIA's lib images, we're saving ourselves a LOT of headaches https://ngc.nvidia.com/catalog/containers/nvidia:l4t-pytorch
+
+https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
+
+However, we could simply pull the `ml` image, meaning that we wouldn't have to maintain two templates. However, it'd also mean larger image sizes

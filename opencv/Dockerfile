@@ -1,11 +1,9 @@
-FROM arm64v8/python:3.7
+FROM nvcr.io/nvidia/l4t-ml:r32.4.3-py3
 
 WORKDIR /project
 
 RUN apt-get update && apt-get clean && \
     rm -r /var/lib/apt/lists/*
-
-RUN pip3 install -U pip && rm -rf /root/.cache
 
 RUN pip3 install numpy neon
 
@@ -15,7 +13,7 @@ RUN apt-get update && apt-get install \
     libavformat-dev libswscale-dev  libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev \
     protobuf-compiler libgflags-dev libgoogle-glog-dev libblas-dev libhdf5-serial-dev liblmdb-dev libleveldb-dev \
     liblapack-dev libsnappy-dev libprotobuf-dev libopenblas-dev libgtk2.0-dev libboost-dev libboost-all-dev \
-    libeigen3-dev libatlas-base-dev libne10-10 libne10-dev -y --no-install-recommends && \
+    libeigen3-dev libatlas-base-dev libne10-10 libne10-dev unzip -y --no-install-recommends && \
     apt-get install libneon27-dev -y --no-install-recommends && \
     apt-get install libneon27-gnutls-dev -y --no-install-recommends
 
