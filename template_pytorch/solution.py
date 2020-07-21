@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import numpy as np
 
 from aido_schemas import EpisodeStart, protocol_agent_duckiebot1, PWMCommands, Duckiebot1Commands, LEDSCommands, RGB, \
@@ -9,6 +10,55 @@ from wrappers import DTPytorchWrapper
 from PIL import Image
 import io
 
+try:
+    import torch    # Hacks are fun
+except:
+    # Big brain hack time: basically, CUDA doesn't really support ARM64. It does support the Jetson, though.
+    #
+    # So the way to access CUDA inside a docker is to import and -v a bunch of files that CUDA requires - tricking the
+    # docker into thinking it does have CUDA installed.
+    #
+    # But docker build doesn't support -v args... and torchvision requires CUDA during the intall phase... So we have to
+    # build a fake base image, then run this script once, which imports torch if it's not already importable, and then
+    # we have to commit the changes to the docker.
+    import os
+    from contextlib import contextmanager
+    import os
+    import subprocess
+    @contextmanager
+    def chdir(newdir):
+        # https://stackoverflow.com/questions/431684/how-do-i-change-the-working-directory-in-python
+        prevdir = os.getcwd()
+        os.chdir(os.path.expanduser(newdir))
+        try:
+            yield
+        finally:
+            os.chdir(prevdir)
+
+    os.mkdir("./torch_build_dir")
+    with chdir("./torch_build_dir"):
+        # Install required libs
+        subprocess.check_output("""
+apt-get update && \
+apt-get install python3-pip libopenblas-base libopenmpi-dev libjpeg-dev zlib1g-dev openmpi-bin openmpi-common -y && \
+pip3 install Cython
+""")
+
+        # Install torch
+        subprocess.check_output("""
+wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp37-cp37m-linux_aarch64.whl && \
+pip3 install torch-1.5.0-cp37-cp37m-linux_aarch64.whl
+""")
+
+        # Install torchvision
+        subprocess.check_output("""
+wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
+""")
+        with chdir("vision-0.6.0"):
+            subprocess.check_output("python3 setup.py install")
+
+    print("Successfully installed torch and torchvision. Please commit these changes to the docker. Exiting now...")
+    exit(0)
 
 class PytorchRLTemplateAgent:
     def __init__(self, load_model=False, model_path=None):

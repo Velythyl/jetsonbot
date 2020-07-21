@@ -42,3 +42,11 @@ docker buildx version # should return a correct version; verifies that buildx is
 https://github.com/Technica-Corporation/Tegra-Docker
 
 Basically, by simply plugging all the files needed for CUDA into the docker, since the host is also aarch65, everything works fine!
+
+# Pytorch inside the docker
+
+Well. This is awkward. We can't use CUDA inside a docker because we're on ARM64, so we're hacking it up at runtime. But to install torchvision, we need CUDA at install time.
+
+We're doing the following: create the docker image with a `docker build`. Then, make the docker run a script that installs torch during a `docker run`.
+
+Then, use `docker commit`. Tada! Torch installed.
