@@ -34,9 +34,9 @@ WORKDIR /workspace
 #    pip3 install Cython
 #RUN wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp37-cp37m-linux_aarch64.whl
 #RUN wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
-
+RUN find / lib | grep libmpi
 ENV DISABLE_CONTRACTS=1
-#ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib:/jetson_libs
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib:/jetson_libs
 #RUN python -c "import solution; import wrappers; import model"
 
 # let's see what you've got there...
