@@ -45,7 +45,9 @@ except:
             os.chdir(prevdir)
 
     def call(cmd):
-        return subprocess.run(cmd, stdout=sys.stdout, stderr=STDOUT, shell=True, universal_newlines=True, capture_output=True)
+        return subprocess.run(cmd, stdout=sys.stdout, stderr=STDOUT, shell=True, universal_newlines=True)
+
+    call("ls"); exit(1)
 
     os.mkdir("./torch_build_dir")
     with chdir("./torch_build_dir"):
