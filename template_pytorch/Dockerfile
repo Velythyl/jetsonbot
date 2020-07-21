@@ -19,19 +19,6 @@ RUN rm -rf /workspace; mkdir /workspace
 COPY requirements.txt /workspace
 RUN pip3 install -r /workspace/requirements.txt
 
-# let's copy all our solution files to our workspace
-# if you have more file use the COPY command to move them to the workspace
-COPY solution.py /workspace
-COPY models /workspace/models
-COPY model.py /workspace
-COPY wrappers.py /workspace
-
-#ADD jetson_libs /jetson_libs
-#RUN cp -r /jetson_libs/. /usr/lib/aarch64-linux-gnu/
-
-# we make the workspace our working directory
-WORKDIR /workspace
-
 #RUN apt-get update && \
 #    apt-get install python3-pip libopenblas-base libopenmpi-dev libjpeg-dev zlib1g-dev openmpi-bin openmpi-common -y && \
 #    pip3 install Cython
@@ -44,6 +31,19 @@ RUN apt-get update && apt-get install python3-pip libopenblas-base libopenmpi-de
 RUN wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp37-cp37m-linux_aarch64.whl
 RUN pip3 install Cython
 RUN pip3 install torch-1.5.0-cp37-cp37m-linux_aarch64.whl
+
+# let's copy all our solution files to our workspace
+# if you have more file use the COPY command to move them to the workspace
+COPY solution.py /workspace
+COPY models /workspace/models
+COPY model.py /workspace
+COPY wrappers.py /workspace
+
+#ADD jetson_libs /jetson_libs
+#RUN cp -r /jetson_libs/. /usr/lib/aarch64-linux-gnu/
+
+# we make the workspace our working directory
+WORKDIR /workspace
 
 ENV DISABLE_CONTRACTS=1
 #ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib:/jetson_libs:/usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu/openmpi/
