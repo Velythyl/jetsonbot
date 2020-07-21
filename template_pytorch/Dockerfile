@@ -37,7 +37,7 @@ WORKDIR /workspace
 RUN find / lib | grep libmpi
 RUN find / lib | grep libgnutls
 ENV DISABLE_CONTRACTS=1
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib:/jetson_libs:/usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu/openmpi/
+#ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib:/jetson_libs:/usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu/openmpi/
 #RUN python -c "import solution; import wrappers; import model"
 
 # let's see what you've got there...
