@@ -47,7 +47,7 @@ except:
     def call(cmd):
         return subprocess.run(cmd, stdout=sys.stdout, stderr=STDOUT, shell=True, universal_newlines=True)
 
-    call("ls"); exit(1)
+    call("echo allo"); exit(1)
 
     os.mkdir("./torch_build_dir")
     with chdir("./torch_build_dir"):
