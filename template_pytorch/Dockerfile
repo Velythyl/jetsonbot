@@ -29,7 +29,15 @@ COPY wrappers.py /workspace
 # we make the workspace our working directory
 WORKDIR /workspace
 
+RUN apt-get update && \
+    apt-get install python3-pip libopenblas-base libopenmpi-dev libjpeg-dev zlib1g-dev openmpi-bin openmpi-common -y && \
+    pip3 install Cython
+RUN wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp37-cp37m-linux_aarch64.whl
+RUN wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
+
 ENV DISABLE_CONTRACTS=1
+
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/jetson_libs
 
 #RUN python -c "import solution; import wrappers; import model"
 

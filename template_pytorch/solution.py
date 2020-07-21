@@ -11,7 +11,7 @@ try:
 except:
     import sys
     print("""Importing 'model' from 'DDPG' failed. If you are currently building this template for the JetsonNano (
-template-pytorch), worry not: the JN is a finnicky beast, and we're actually going to install torch and torchvision soon
+template-pytorch), worry not: the JN is finicky, and we're actually going to install torch and torchvision soon
 . \n\n\nIf you are trying to submit your solution, do worry, and contact a maintainer!\n\n\n""", file=sys.stderr)
 
 from wrappers import DTPytorchWrapper
@@ -69,7 +69,7 @@ wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && 
         with chdir("vision-0.6.0"):
             call("python3 setup.py install")
 
-    print("Successfully installed torch and torchvision. Please commit these changes to the docker. Exiting now...")
+    #print("Successfully installed torch and torchvision. Please commit these changes to the docker. Exiting now...")
     exit(0)
 
 class PytorchRLTemplateAgent:
