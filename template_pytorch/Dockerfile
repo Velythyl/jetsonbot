@@ -35,14 +35,14 @@ RUN wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.w
 RUN pip3 install Cython
 RUN pip3 install torch-1.5.0-cp37-cp37m-linux_aarch64.whl
 #RUN git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
-#RUN pip3 install torchvision
-RUN wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
-WORKDIR vision-0.6.0
-RUN find / lib | grep libmpi
-RUN ln -s /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.40 /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.20 && \
-    ln -s /usr/lib/aarch64-linux-gnu/libmpi.so.40 /usr/lib/aarch64-linux-gnu/libmpi.so.20
-RUN python3 setup.py install
-WORKDIR /workspace
+RUN pip3 install torchvision==0.6.0
+#RUN wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
+#WORKDIR vision-0.6.0
+#RUN find / lib | grep libmpi
+#RUN ln -s /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.40 /usr/lib/aarch64-linux-gnu/libmpi_cxx.so.20 && \
+#    ln -s /usr/lib/aarch64-linux-gnu/libmpi.so.40 /usr/lib/aarch64-linux-gnu/libmpi.so.20
+#RUN python3 setup.py install
+#WORKDIR /workspace
 
 
 
