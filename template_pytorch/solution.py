@@ -63,14 +63,11 @@ pip3 install torch-1.5.0-cp37-cp37m-linux_aarch64.whl
 """)
 
         # Install torchvision
-        saved_lib_path = os.environ["LD_LIBRARY_PATH"]
-        os.environ["LD_LIBRARY_PATH"] = "/jetson_libs"
         call("""
 wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
 """)
         with chdir("vision-0.6.0"):
             call("python3 setup.py install")
-        os.environ["LD_LIBRARY_PATH"] = saved_lib_path
 
     #print("Successfully installed torch and torchvision. Please commit these changes to the docker. Exiting now...")
     exit(0)
