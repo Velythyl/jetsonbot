@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
 
+
 import numpy as np
 
 from aido_schemas import EpisodeStart, protocol_agent_duckiebot1, PWMCommands, Duckiebot1Commands, LEDSCommands, RGB, \
     wrap_direct, Context, Duckiebot1Observations, JPGImage, logger
 
-from model import DDPG
+try:
+    from model import DDPG
+except:
+    import sys
+    print("""Importing 'model' from 'DDPG' failed. If you are currently building this template for the JetsonNano (
+template-pytorch), worry not: the JN is a finnicky beast, and we're actually going to install torch and torchvision soon
+. \n\n\nIf you are trying to submit your solution, do worry, and contact a maintainer!\n\n\n""", file=sys.stderr)
+
 from wrappers import DTPytorchWrapper
 from PIL import Image
 import io
@@ -13,7 +21,7 @@ import io
 try:
     import torch    # Hacks are fun
 except:
-    # Big brain hack time: basically, CUDA doesn't really support ARM64. It does support the Jetson, though.
+    # Hack time: basically, CUDA doesn't really support ARM64. It does support the Jetson, though.
     #
     # So the way to access CUDA inside a docker is to import and -v a bunch of files that CUDA requires - tricking the
     # docker into thinking it does have CUDA installed.
