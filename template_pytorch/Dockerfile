@@ -14,6 +14,10 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # let's create our workspace, we don't want to clutter the container
 RUN rm -rf /workspace; mkdir /workspace
 
+WORKDIR /workspace
+ADD jetson_libs ./jetson_libs
+RUN rsync -a -v --ignore-existing ./jetson_libs /usr/libs/aarch64-linux-gnu/ && rm -rf ./jetson_libs
+
 # here, we install the requirements, some requirements come by default
 # you can add more if you need to in requirements.txt
 COPY requirements.txt /workspace
