@@ -35,6 +35,7 @@ WORKDIR /workspace
 #RUN wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp37-cp37m-linux_aarch64.whl
 #RUN wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
 RUN find / lib | grep libmpi
+RUN find / lib | grep libgnutls
 ENV DISABLE_CONTRACTS=1
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib:/jetson_libs:/usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu/openmpi/
 #RUN python -c "import solution; import wrappers; import model"
