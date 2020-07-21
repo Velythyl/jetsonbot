@@ -39,6 +39,8 @@ ENV DISABLE_CONTRACTS=1
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/jetson_libs
 
+RUN echo $LD_LIBRARY_PATH
+
 #RUN python -c "import solution; import wrappers; import model"
 
 # let's see what you've got there...
