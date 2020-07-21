@@ -33,6 +33,7 @@ except:
     from contextlib import contextmanager
     import os
     import subprocess
+    from subprocess import *
     @contextmanager
     def chdir(newdir):
         # https://stackoverflow.com/questions/431684/how-do-i-change-the-working-directory-in-python
@@ -44,7 +45,7 @@ except:
             os.chdir(prevdir)
 
     def call(cmd):
-        return subprocess.check_output(cmd, shell=True, universal_newlines=True)
+        return subprocess.run(cmd, stdout=sys.stdout, stderr=STDOUT, shell=True, universal_newlines=True, capture_output=True)
 
     os.mkdir("./torch_build_dir")
     with chdir("./torch_build_dir"):
