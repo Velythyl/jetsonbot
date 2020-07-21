@@ -26,7 +26,7 @@ COPY models /workspace/models
 COPY model.py /workspace
 COPY wrappers.py /workspace
 
-COPY /usr/lib/aarch64-linux-gnu /jetson_libs
+ADD /usr/lib/aarch64-linux-gnu /jetson_libs
 RUN cp -r /jetson_libs /usr/lib/aarch64-linux-gnu
 
 # we make the workspace our working directory
