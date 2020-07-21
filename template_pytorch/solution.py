@@ -43,27 +43,30 @@ except:
         finally:
             os.chdir(prevdir)
 
+    def call(cmd):
+        return subprocess.check_output(cmd, shell=True, universal_newlines=True)
+
     os.mkdir("./torch_build_dir")
     with chdir("./torch_build_dir"):
         # Install required libs
-        subprocess.check_output("""
+        call("""
 apt-get update && \
 apt-get install python3-pip libopenblas-base libopenmpi-dev libjpeg-dev zlib1g-dev openmpi-bin openmpi-common -y && \
 pip3 install Cython
 """)
 
         # Install torch
-        subprocess.check_output("""
+        call("""
 wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp37-cp37m-linux_aarch64.whl && \
 pip3 install torch-1.5.0-cp37-cp37m-linux_aarch64.whl
 """)
 
         # Install torchvision
-        subprocess.check_output("""
+        call("""
 wget https://github.com/pytorch/vision/archive/v0.6.0.zip -O torchvision.zip && unzip torchvision.zip
 """)
         with chdir("vision-0.6.0"):
-            subprocess.check_output("python3 setup.py install")
+            call("python3 setup.py install")
 
     print("Successfully installed torch and torchvision. Please commit these changes to the docker. Exiting now...")
     exit(0)
