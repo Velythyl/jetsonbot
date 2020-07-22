@@ -39,4 +39,4 @@ ENV DISABLE_CONTRACTS=1
 #RUN python -c "import solution; import wrappers; import model"
 
 # let's see what you've got there...
-CMD python solution.py
+CMD python3 solution.py
