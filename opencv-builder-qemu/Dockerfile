@@ -1,11 +1,12 @@
-FROM nvcr.io/nvidia/l4t-ml:r32.4.3-py3
+FROM nvcr.io/nvidia/l4t-base:r32.3.1
 
 WORKDIR /project
 
-RUN apt-get update && apt-get clean && \
-    rm -r /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND=noninteractive
+RUN echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections
 
- pip3 install numpy neon
+RUN apt-get update && apt-get install python3-pip -y
+RUN pip3 install Cython && pip3 install numpy neon
 
 # OPENCV
 RUN apt-get update && apt-get install \
@@ -17,8 +18,8 @@ RUN apt-get update && apt-get install \
     apt-get install libneon27-dev -y --no-install-recommends && \
     apt-get install libneon27-gnutls-dev -y --no-install-recommends
 
-RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip && \
-    unzip opencv.zip && \
+RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip
+RUN unzip opencv.zip && \
     wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/4.1.2.zip && \
     unzip opencv_contrib.zip && \
     mkdir ./opencv-4.1.2/build && \
@@ -27,8 +28,6 @@ RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip && \
     WITH_OPENMP=ON -D WITH_CSTRIPES=ON -D WITH_OPENCL=ON -D CMAKE_INSTALL_PREFIX=/usr/local -D \
     OPENCV_EXTRA_MODULES_PATH=./../../opencv_contrib-4.1.2/modules/ .. && \
     make && \
-    make install && \
-    cd ../.. && \
-    rm -rf opencv-4.1.2 && rm -rf opencv_contrib-4.1.2 && rm opencv.zip && rm rm opencv_contrib.zip
+    cd ../..
 
-ENV DISABLE_CONTRACTS 1
+CMD cp -r /project/opencv-4.1.2/build/* /build

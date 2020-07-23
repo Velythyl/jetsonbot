@@ -1,9 +1,12 @@
-cbor2==4.1.2
-base58==1.0.3
+numpy
+# opencv-python==4.1.0.25 This is in
+# https://github.com/duckietown/aido-protocols/blob/daffy/minimal-nodes-stubs/aido3-base-python3/requirements.txt
+# but ARM64 being ARM64, we're compiling from source. See the opencv-builder-qemu dir
 zuper-nodes-z5>=5.0.9
 zuper-typing-z5>=5.0.12
 zuper-ipce-z5>=5.1.2
 zuper-commons-z5>=5.0.7
+
 aido-protocols-daffy>=5.0.18
 duckietown-world-daffy>=5.0.10
 duckietown-challenges-daffy>=5.1.1

@@ -61,3 +61,9 @@ By simply using NVIDIA's lib images, we're saving ourselves a LOT of headaches h
 https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
 
 However, we could simply pull the `ml` image, meaning that we wouldn't have to maintain two templates. However, it'd also mean larger image sizes
+
+# Syslog
+
+/var/log/syslog grew to be VERY large in size over time. Mine was 8GB at some point, and I had trouble prototyping dockers because of a lack of space.
+
+Doing a daily `sudo cat /dev/null > /var/log/syslog`, even though it's normally bad practice, might be useful here.
