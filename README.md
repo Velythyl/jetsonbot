@@ -21,35 +21,13 @@ I recommend either removing all dts messages until the build is done, or the ope
 created by that with `dts duckiebot evaluate --image <image>`. That way, one knows for sure the build succeeded or failed, and that the cause of error
 isn't because the JN is too foreign to dts.
 
-# Building for arm64v8
-
-For me, `dts devel build -a arm64v8` didn't work. It exited with exit code 125 (and, weirdly, told me that docker tag had to be lowercase; but changing the name of the repo everywhere I could see didn't matter. I think it bases itself off of git?)
-
-It also said my arg `ARCH=<...>` wasn't consumed. Meaning, the docker isn't compatible at all with building for another arch.
-
-The two files 
-
-So we'll be enabling building for `arm64` ourselves: 
-
-```
-export DOCKER_CLI_EXPERIMENTAL=enabled
-docker buildx version # should return a correct version; verifies that buildx is enabled
-
-```
-
 # CUDA inside the docker
 
 https://github.com/Technica-Corporation/Tegra-Docker
 
 Basically, by simply plugging all the files needed for CUDA into the docker, since the host is also aarch65, everything works fine!
 
-# Pytorch inside the docker
-
-Well. This is awkward. We can't use CUDA inside a docker because we're on ARM64, so we're hacking it up at runtime. But to install torchvision, we need CUDA at install time.
-
-We're doing the following: create the docker image with a `docker build`. Then, make the docker run a script that installs torch during a `docker run`.
-
-Then, use `docker commit`. Tada! Torch installed.
+NOTE: this is just in case we need it, because I found something much better https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
 
 # Turns out that doing this ourselves is way too hard and unmaintainable
 
@@ -62,8 +40,19 @@ https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
 
 However, we could simply pull the `ml` image, meaning that we wouldn't have to maintain two templates. However, it'd also mean larger image sizes
 
+NOTE: nope, the non-base images are of a JN version higher than ours. This is kind of undocumented, but this means they're completely incompatible. The build
+goes well, but when we launch the dockers, it just fails.
+
 # Syslog
 
 /var/log/syslog grew to be VERY large in size over time. Mine was 8GB at some point, and I had trouble prototyping dockers because of a lack of space.
 
 Doing a daily `sudo cat /dev/null > /var/log/syslog`, even though it's normally bad practice, might be useful here.
+
+# The current way of doing the dockers:
+
+1. Start `FROM` nvidia's l4t-base's version mentionned in here https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
+2. Build our own base upon it
+3. Build torch on that
+4. Compile on a qemu-enabled laptop with a dts challenges submit
+5. Using the docker tag from step 4, run duckiebot evaluate natively
