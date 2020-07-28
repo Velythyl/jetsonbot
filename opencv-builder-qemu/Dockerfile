@@ -30,4 +30,4 @@ RUN unzip opencv.zip && \
     make && \
     cd ../..
 
-CMD cp -r /project/opencv-4.1.2/build/* /build
+CMD cp -r /project /build
