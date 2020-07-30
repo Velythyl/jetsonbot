@@ -33,8 +33,13 @@ RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip && \
     cd ../.. && \
     rm -rf opencv-4.1.2 && rm -rf opencv_contrib-4.1.2 && rm opencv.zip && rm opencv_contrib.zip
 
+RUN pip3 install Cython && pip3 install numpy && apt-get install gfortran -y && pip3 install numpy --upgrade
+RUN pip3 install imutils
+
 COPY requirements.txt requirements-base.txt
-RUN pip3 install -r requirements-base.txt && rm -rf /root/.cache
+# force using UTF8, otherwise cbor2 fails
+ENV LC_ALL=en_US.UTF-8
+RUN pip3 install -r requirements-base.txt && rm -rf /root/.cache -vv
 
 RUN pip3 freeze | tee /pip3-freeze.txt
 RUN pip3 list | tee /pip3-list.txt
