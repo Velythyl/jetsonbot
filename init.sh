@@ -37,7 +37,7 @@ trim: 0.0" > default.yaml
 return true
 }
 
-#setup_cameras() || true
+#setup_cameras || true
 
 function install_deps() {
 apt install python3-pip -y
@@ -46,7 +46,7 @@ pip3 install cython
 return true
 }
 
-install_deps() || true
+install_deps || true
 
 function docker_stuff() {
 docker pull portainer/portainer
@@ -61,7 +61,7 @@ systemctl restart docker
 return true
 }
 
-#docker_stuff() || true
+#docker_stuff || true
 
 function setup_camera_stream() {
 cd /usr/src/linux-headers-4.9.140-tegra-ubuntu18.04_aarch64/kernel-4.9
