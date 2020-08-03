@@ -97,3 +97,4 @@ sudo -i echo -e "[Unit]\nDescription=GST Pipeline\nAfter=network.target\nStartLi
 echo "Created service file. Restarting systemcl."
 systemctl start gstpipeline
 systemctl enable gstpipeline
+systemctl daemon-reload
