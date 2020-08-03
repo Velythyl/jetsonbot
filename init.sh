@@ -1,5 +1,6 @@
 until apt-get update; do sleep 2; done
 
+function setup_cameras() {
 mkdir data && cd data
 mkdir config && cd config
 mkdir calibrations && cd calibrations
@@ -32,3 +33,45 @@ k: 27.0
 limit: 1.0
 radius: 0.0318
 trim: 0.0" > default.yaml
+return true
+}
+
+#setup_cameras() || true
+
+function install_deps() {
+apt install python3-pip -y
+apt install python-pip -y
+pip3 install cython
+return true
+}
+
+install_deps() || true
+
+function docker_stuff() {
+docker pull portainer/portainer
+docker volume create portainer_data
+docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+mkdir-p /etc/systemd/system/docker.service.d
+echo "[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2375" > /etc/systemd/system/docker.service.d/options.conf
+systemctl daemon-reload
+systemctl restart docker
+return true
+}
+
+#docker_stuff() || true
+
+function setup_camera_stream() {
+cd /usr/src/linux-headers-4.9.140-tegra-ubuntu18.04_aarch64/kernel-4.9
+mkdir v4l2loopback
+git clone https://github.com/umlaeute/v4l2loopback.git v4l2loopback
+cd v4l2loopback
+make
+make install
+apt-get install -y v4l2loopback-dkms v4l2loopback-utils
+modprobe v4l2loopback devices=1video_nr=2exclusive_caps=1
+echo options v4l2loopback devices=1video_nr=2exclusive_caps=1 > /etc/modprobe.d/v4l2loopback.conf
+echo v4l2loopback > /etc/modules
+update-initramfs -u
+}
