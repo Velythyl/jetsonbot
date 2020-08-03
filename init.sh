@@ -89,8 +89,8 @@ echo options v4l2loopback devices=1 video_nr=2 exclusive_caps=1 > /etc/modprobe.
 echo v4l2loopback > /etc/modules
 update-initramfs -u
 end_msg "PIPELINE SETUP"
-'
 
+start_msg "PIPELINE SERVICE SETUP"
 echo -e "#! /bin/bash\n\ngst-launch-1.0 -v nvarguscamerasrc ! 'video/x-raw(memory:NVMM), format=NV12, width=1920, height=1080, framerate=30/1' ! nvvidconv ! 'video/x-raw, width=640, height=480, format=I420, framerate=30/1' ! videoconvert ! identity drop-allocation=1 ! 'video/x-raw, width=640, height=480, format=RGB, framerate=30/1' ! v4l2sink device=/dev/video2" > gstpipeline.sh
 chmod 777 gstpipeline.sh
 sudo -i echo -e "[Unit]\nDescription=GST Pipeline\nAfter=network.target\nStartLimitIntervalSec=0\n[Service]\nType=simple\nRestart=always\nRestartSec=1\nUser=$USER\nExecStart=/usr/bin/env /home/jetsonbot/gstpipeline.sh\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/gstpipeline.service
@@ -98,3 +98,13 @@ echo "Created service file. Restarting systemcl."
 systemctl start gstpipeline
 systemctl enable gstpipeline
 systemctl daemon-reload
+end_msg "PIPELINE SERVICE SETUP"
+'
+
+start_msg "DOCKER IMAGES SETUP"
+docker pull ros:kinetic-ros-base-xenial
+docker pull duckietown/dt-ros-kinetic-base
+docker pull duckietown/dt-ros-commons
+docker pull duckietown/dt-car-interface:daffy-arm32v7
+docker pull duckietown/dt-core:daffy-arm32v7
+end_msg "DOCKER IMAGES SETUP"
