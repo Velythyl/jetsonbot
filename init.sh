@@ -52,7 +52,7 @@ function docker_stuff() {
 docker pull portainer/portainer
 docker volume create portainer_data
 docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-mkdir-p /etc/systemd/system/docker.service.d
+mkdir -p /etc/systemd/system/docker.service.d
 echo "[Service]
 ExecStart=
 ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2375" > /etc/systemd/system/docker.service.d/options.conf
