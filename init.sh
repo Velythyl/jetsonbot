@@ -34,6 +34,7 @@ k: 27.0
 limit: 1.0
 radius: 0.0318
 trim: 0.0" > default.yaml
+echo "${FUNCNAME[0]} has run successfully"
 true
 }
 
@@ -43,6 +44,7 @@ function install_deps() {
 apt install python3-pip -y
 apt install python-pip -y
 pip3 install cython
+echo "${FUNCNAME[0]} has run successfully"
 true
 }
 
@@ -58,6 +60,7 @@ ExecStart=
 ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2375" > /etc/systemd/system/docker.service.d/options.conf
 systemctl daemon-reload
 systemctl restart docker
+echo "${FUNCNAME[0]} has run successfully"
 true
 }
 
@@ -75,5 +78,6 @@ modprobe v4l2loopback devices=1video_nr=2exclusive_caps=1
 echo options v4l2loopback devices=1video_nr=2exclusive_caps=1 > /etc/modprobe.d/v4l2loopback.conf
 echo v4l2loopback > /etc/modules
 update-initramfs -u
+echo "${FUNCNAME[0]} has run successfully"
 true
 }
