@@ -1,3 +1,4 @@
+#!/bin/bash
 until apt-get update; do sleep 2; done
 
 function setup_cameras() {
