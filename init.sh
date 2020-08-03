@@ -103,7 +103,7 @@ end_msg "PIPELINE SETUP"
 
 start_msg "DOCKER IMAGES SETUP"
 apt install -ygit git-lfs
-pip3 install --no-cache-dir--user-U duckietown-shell
+pip3 install --no-cache-dir --user -U duckietown-shell
 git clone https://github.com/carmen-sc/dt-duckiebot-interface.git
 cd dt-duckiebot-interface
 dts devel build -f
