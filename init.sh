@@ -38,7 +38,7 @@ echo "${FUNCNAME[0]} has run successfully"
 true
 }
 
-#setup_cameras || true
+#setup_cameras
 
 function install_deps() {
 apt install python3-pip -y
@@ -48,12 +48,12 @@ echo "${FUNCNAME[0]} has run successfully"
 true
 }
 
-#install_deps || true
+#install_deps
 
 function docker_stuff() {
-#docker pull portainer/portainer
-#docker volume create portainer_data
-#docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+docker pull portainer/portainer
+docker volume create portainer_data
+docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 mkdir -p /etc/systemd/system/docker.service.d
 echo "[Service]
 ExecStart=
@@ -64,7 +64,7 @@ echo "${FUNCNAME[0]} has run successfully"
 true
 }
 
-docker_stuff
+#docker_stuff
 
 function setup_camera_stream() {
 cd /usr/src/linux-headers-4.9.140-tegra-ubuntu18.04_aarch64/kernel-4.9
@@ -81,3 +81,5 @@ update-initramfs -u
 echo "${FUNCNAME[0]} has run successfully"
 true
 }
+
+setup_camera_stream
