@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-base:r32.3.1
+FROM nvcr.io/nvidia/l4t-ml:r32.4.3-py3
 
 WORKDIR /project
 
@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y ffmpeg mencoder python3.6 git && apt-ge
     rm -r /var/lib/apt/lists/*
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections
+RUN echo '* libraries/restart-without-asking boolean true' | debconf-set-selections
 
 RUN apt-get update && apt-get install python3-pip make cmake -y && pip3 install -U pip && rm -rf /root/.cache
 
