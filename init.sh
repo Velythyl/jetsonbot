@@ -106,5 +106,5 @@ apt install -y git git-lfs
 pip3 install --no-cache-dir -U duckietown-shell
 git clone https://github.com/carmen-sc/dt-duckiebot-interface.git
 cd dt-duckiebot-interface
-sudo -u $(logname) dts devel build -f
+su $(logname) dts devel build -f
 end_msg "DOCKER IMAGES SETUP"
