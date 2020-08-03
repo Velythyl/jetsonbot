@@ -102,7 +102,7 @@ end_msg "PIPELINE SETUP"
 #end_msg "PIPELINE SERVICE SETUP"
 
 start_msg "DOCKER IMAGES SETUP"
-apt install -ygit git-lfs
+apt install -y git git-lfs
 su - $logname
 pip3 install --no-cache-dir --user -U duckietown-shell
 git clone https://github.com/carmen-sc/dt-duckiebot-interface.git
