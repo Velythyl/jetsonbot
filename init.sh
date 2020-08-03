@@ -102,9 +102,9 @@ end_msg "PIPELINE SETUP"
 #end_msg "PIPELINE SERVICE SETUP"
 
 start_msg "DOCKER IMAGES SETUP"
-docker pull ros:kinetic-ros-base-xenial
-docker pull duckietown/dt-ros-kinetic-base
-docker pull duckietown/dt-ros-commons
-docker pull duckietown/dt-car-interface:daffy-arm32v7
-docker pull duckietown/dt-core:daffy-arm32v7
+apt install -ygit git-lfs
+pip3 install --no-cache-dir--user-U duckietown-shell
+git clone https://github.com/carmen-sc/dt-duckiebot-interface.git
+cd dt-duckiebot-interface
+dts devel build -f
 end_msg "DOCKER IMAGES SETUP"
