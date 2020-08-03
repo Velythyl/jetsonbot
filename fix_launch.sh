@@ -3,9 +3,7 @@ echo -e "#! /bin/bash\n\ngst-launch-1.0 -v nvarguscamerasrc ! 'video/x-raw(memor
 chmod 777 gstpipeline.sh
 
 sudo -i
-
 echo -e "[Unit]\nDescription=GST Pipeline\nAfter=network.target\nStartLimitIntervalSec=0\n[Service]\nType=simple\nRestart=always\nRestartSec=1\nUser=$USER\nExecStart=/usr/bin/env /home/jetsonbot/gstpipeline.sh\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/gstpipeline.service
-
 exit
 
 systemctl start gstpipeline
