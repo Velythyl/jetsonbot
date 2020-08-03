@@ -34,7 +34,7 @@ k: 27.0
 limit: 1.0
 radius: 0.0318
 trim: 0.0" > default.yaml
-return true
+true
 }
 
 #setup_cameras || true
@@ -43,10 +43,10 @@ function install_deps() {
 apt install python3-pip -y
 apt install python-pip -y
 pip3 install cython
-return true
+true
 }
 
-install_deps || true
+#install_deps || true
 
 function docker_stuff() {
 docker pull portainer/portainer
@@ -58,10 +58,10 @@ ExecStart=
 ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2375" > /etc/systemd/system/docker.service.d/options.conf
 systemctl daemon-reload
 systemctl restart docker
-return true
+true
 }
 
-#docker_stuff || true
+docker_stuff || true
 
 function setup_camera_stream() {
 cd /usr/src/linux-headers-4.9.140-tegra-ubuntu18.04_aarch64/kernel-4.9
@@ -75,4 +75,5 @@ modprobe v4l2loopback devices=1video_nr=2exclusive_caps=1
 echo options v4l2loopback devices=1video_nr=2exclusive_caps=1 > /etc/modprobe.d/v4l2loopback.conf
 echo v4l2loopback > /etc/modules
 update-initramfs -u
+true
 }
