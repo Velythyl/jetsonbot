@@ -51,6 +51,7 @@ true
 #install_deps
 
 function docker_stuff() {
+groupadd docker && usermod -aG docker $logname && newgrp docker
 docker pull portainer/portainer
 docker volume create portainer_data
 docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
@@ -74,8 +75,8 @@ cd v4l2loopback
 make
 make install
 apt-get install -y v4l2loopback-dkms v4l2loopback-utils
-modprobe v4l2loopback devices=1video_nr=2exclusive_caps=1
-echo options v4l2loopback devices=1video_nr=2exclusive_caps=1 > /etc/modprobe.d/v4l2loopback.conf
+modprobe v4l2loopback devices=1 video_nr=2 exclusive_caps=1
+echo options v4l2loopback devices=1 video_nr=2 exclusive_caps=1 > /etc/modprobe.d/v4l2loopback.conf
 echo v4l2loopback > /etc/modules
 update-initramfs -u
 echo "${FUNCNAME[0]} has run successfully"
