@@ -59,7 +59,7 @@ true
 #install_deps
 
 function docker_stuff() {
-groupadd docker && usermod -aG docker $logname && newgrp docker
+groupadd docker && usermod -aG docker $(logname) && newgrp docker
 docker pull portainer/portainer
 docker volume create portainer_data
 docker run -d -p 9000:9000 -p 8000:8000 --name portainer --restart always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
@@ -103,8 +103,7 @@ end_msg "PIPELINE SETUP"
 
 start_msg "DOCKER IMAGES SETUP"
 apt install -y git git-lfs
-exec su - $logname
-pip3 install --no-cache-dir --user -U duckietown-shell
+sudo -u $(logname) pip3 install --no-cache-dir --user -U duckietown-shell
 git clone https://github.com/carmen-sc/dt-duckiebot-interface.git
 cd dt-duckiebot-interface
 dts devel build -f
