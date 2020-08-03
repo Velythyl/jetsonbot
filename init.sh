@@ -61,7 +61,7 @@ systemctl restart docker
 true
 }
 
-docker_stuff || true
+docker_stuff
 
 function setup_camera_stream() {
 cd /usr/src/linux-headers-4.9.140-tegra-ubuntu18.04_aarch64/kernel-4.9
