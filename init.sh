@@ -9,7 +9,7 @@ function end_msg() {
     echo "$1 has ended successfully"
 }
 
-function setup_cameras() {
+start_msg "CAMERA INSTALLS"
 mkdir data && cd data
 mkdir config && cd config
 mkdir calibrations && cd calibrations
@@ -42,23 +42,16 @@ k: 27.0
 limit: 1.0
 radius: 0.0318
 trim: 0.0" > default.yaml
-echo "${FUNCNAME[0]} has run successfully"
-true
-}
+end_msg "CAMERA INSTALLS"
 
-#setup_cameras
 
-function install_deps() {
+start_msg "DEP INSTALLS"
 apt install python3-pip -y
 apt install python-pip -y
 pip3 install cython
-echo "${FUNCNAME[0]} has run successfully"
-true
-}
+end_msg "DEP INSTALLS"
 
-#install_deps
-
-function docker_stuff() {
+start_msg "DOCKER INSTALLS"
 groupadd docker && usermod -aG docker $(logname) && newgrp docker
 docker pull portainer/portainer
 docker volume create portainer_data
@@ -69,12 +62,9 @@ ExecStart=
 ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2375" > /etc/systemd/system/docker.service.d/options.conf
 systemctl daemon-reload
 systemctl restart docker
-echo "${FUNCNAME[0]} has run successfully"
-true
-}
+end_msg "DOCKER INSTALLS"
 
-: '
-#docker_stuff
+
 start_msg "PIPELINE SETUP"
 cd /usr/src/linux-headers-4.9.140-tegra-ubuntu18.04_aarch64/kernel-4.9
 mkdir v4l2loopback
@@ -89,7 +79,6 @@ echo options v4l2loopback devices=1 video_nr=2 exclusive_caps=1 > /etc/modprobe.
 echo v4l2loopback > /etc/modules
 update-initramfs -u
 end_msg "PIPELINE SETUP"
-'
 
 #start_msg "PIPELINE SERVICE SETUP"
 #echo -e "#! /bin/bash\n\ngst-launch-1.0 -v nvarguscamerasrc ! 'video/x-raw(memory:NVMM), format=NV12, width=1920, height=1080, framerate=30/1' ! nvvidconv ! 'video/x-raw, width=640, height=480, format=I420, framerate=30/1' ! videoconvert ! identity drop-allocation=1 ! 'video/x-raw, width=640, height=480, format=RGB, framerate=30/1' ! v4l2sink device=/dev/video2" > gstpipeline.sh
@@ -100,11 +89,3 @@ end_msg "PIPELINE SETUP"
 #systemctl enable gstpipeline
 #systemctl daemon-reload
 #end_msg "PIPELINE SERVICE SETUP"
-
-start_msg "DOCKER IMAGES SETUP"
-apt install -y git git-lfs
-pip3 install --no-cache-dir -U duckietown-shell
-git clone https://github.com/carmen-sc/dt-duckiebot-interface.git
-cd dt-duckiebot-interface
-su $(logname) -c "dts devel build -f"
-end_msg "DOCKER IMAGES SETUP"
