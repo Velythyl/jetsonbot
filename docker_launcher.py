@@ -85,6 +85,7 @@ for docker in dockers_to_run:
 
 
 def fake_func():
+    print("Done starting. Monitoring processes now...")
     while True:
         for i, process in enumerate(processes):
             if process.poll() is not None:
