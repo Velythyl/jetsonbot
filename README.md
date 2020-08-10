@@ -49,6 +49,8 @@ goes well, but when we launch the dockers, it just fails.
 
 Doing a daily `sudo cat /dev/null > /var/log/syslog`, even though it's normally bad practice, might be useful here.
 
+Also, /var/lib/docker/overlay2 grows to be very large. Doing a rm -rf and then restarting the entier docker stack might be pertinent.
+
 # The current way of doing the dockers:
 
 1. Start `FROM` nvidia's l4t-base's version mentionned in here https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
