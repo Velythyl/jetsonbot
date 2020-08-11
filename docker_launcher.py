@@ -64,7 +64,6 @@ dockers_to_run = [
                      "duckietown/dt-car-interface:daffy-arm32v7",
                      "--gpus all duckietown/dt-core:daffy-arm32v7",
                      "duckietown/dt-rosbridge-websocket:daffy-arm32v7",
-                     "duckietown/rpi-simple-server:master18"
                  ] + parser.dockers
 
 
