@@ -57,7 +57,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--dockers", default=[], type=list_of_str)
 parser = parser.parse_args()
 
-dockers_to_run = [
+dockers_to_run = [  "ros/kinetic-ros-base-xenial ",
                      "duckietown/dt-ros-commons:daffy-arm32v7",
 #"-v /var/run/docker.sock:/var/run/docker.sock -v /var/local:/var/local duckietown/dt-device-loader:daffy-arm32v7",
                      "duckietown/dt-duckiebot-interface:daffy-arm64v8",
